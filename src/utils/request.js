@@ -34,7 +34,7 @@ axios.defaults.timeout = 10000;
 axios.defaults.baseURL = 'http://localhost:3002';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.withCredentials = true;
-//axios.defaults.headers.post['SessionId'] = 'application/json';
+//axios.defaults.headers.post['SessionId'] = 'sss';
 var version = "1.0.0";
 var timestamp = Date.parse(new Date()) / 1000;
 
@@ -65,8 +65,8 @@ const $http = axios.create()
 //http response 拦截器
 axios.interceptors.response.use(
 	response => {
-//未登录
-		if(response.data.code == 405) {
+		//未登录
+		if (response.data.code == 405) {
 			router.push({
 				path: "/login",
 				querry: {
@@ -79,33 +79,33 @@ axios.interceptors.response.use(
 	},
 	error => {
 
-		    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
-      console.log(`readyState: ${error.request.readyState}`);
-       console.log(`status: ${error.request.status}`);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log('Error', error.message);
-    }
+		if (error.response) {
+			// The request was made and the server responded with a status code
+			// that falls out of the range of 2xx
+			console.log(error.response.data);
+			console.log(error.response.status);
+			console.log(error.response.headers);
+		} else if (error.request) {
+			// The request was made but no response was received
+			// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+			// http.ClientRequest in node.js
+			console.log(`readyState: ${error.request.readyState}`);
+			console.log(`status: ${error.request.status}`);
+		} else {
+			// Something happened in setting up the request that triggered an Error
+			console.log('Error', error.message);
+		}
 
 		return Promise.reject(error)
 	}
 )
 
 export default {
-	get: function(url, params = {}) {
+	get: function (url, params = {}) {
 		return new Promise((resolve, reject) => {
 			axios.get(url, {
-					params: params
-				})
+				params: params
+			})
 				.then(response => {
 					resolve(response.data);
 				})
@@ -114,7 +114,7 @@ export default {
 				})
 		})
 	},
-	post: function(url, param = {}, isFile = false) {
+	post: function (url, param = {}, isFile = false) {
 		//		Message.loading({
 		//			mask: true,
 		//			message: '请稍候...',
@@ -132,10 +132,13 @@ export default {
 		//			version: version
 		//		}
 		return new Promise((resolve, reject) => {
-			if(isFile) {
-				console.log($http.defaults.headers)
-				$http.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-				$http.post(url, param)
+			if (isFile) {
+				// $http.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+				$http.post(url, param, {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				})
 					.then(response => {
 						//					Toast.clear();
 						resolve(response.data);
@@ -143,8 +146,8 @@ export default {
 					.catch(err => {
 						reject(err)
 					})
-
 			} else {
+				// $http.defaults.headers.post['Content-Type'] = 'application/json';
 				axios.post(url, data)
 					.then(response => {
 						//					Toast.clear();
@@ -156,7 +159,7 @@ export default {
 			}
 		})
 	},
-	patch: function(url, data = {}) {
+	patch: function (url, data = {}) {
 		return new Promise((resolve, reject) => {
 			axios.patch(url, data)
 				.then(response => {
@@ -167,7 +170,7 @@ export default {
 				})
 		})
 	},
-	put: function(url, data = {}) {
+	put: function (url, data = {}) {
 		return new Promise((resolve, reject) => {
 			axios.put(url, data)
 				.then(response => {
