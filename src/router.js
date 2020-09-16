@@ -31,10 +31,10 @@ export default new Router({
 						import('./views/ArticleManage/ArticleList.vue')
 				},
 				{
-					path: '/article-add',
-					name: 'articleAdd',
+					path: '/article-view/:id',
+					name: 'articleView',
 					component: () =>
-						import('./views/About.vue')
+						import('./views/ArticleManage/View.vue')
 				},
 				{
 					path: '/userinfo',

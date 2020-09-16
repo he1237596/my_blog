@@ -37,10 +37,12 @@
           </el-menu>
         </div>
         <div class="right-top">
+          <div class="imgWrap">
+            <img :src="userInfo.avatar||'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'" />
+          </div>
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
-              {{ userInfo.nickname || "用户昵称"
-              }}<i class="el-icon-arrow-down el-icon--right"></i>
+              {{ userInfo.nickname || userInfo.name}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
@@ -82,13 +84,14 @@
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-location"></i>
-                <span>作品中心</span>
+                <span>文章分类</span>
               </template>
               <!--<el-menu-item-group>-->
               <!--<template slot="title">分组一</template>-->
               <!--<el-menu-item index="/userinfo">个人信息</el-menu-item>-->
               <!--<el-menu-item index="/home/about">编辑文章</el-menu-item>-->
               <el-menu-item index="/article-list">文章管理</el-menu-item>
+              
               <!--<el-menu-item index="/article-add">添加文章</el-menu-item>-->
               <!--</el-menu-item-group>-->
               <!--<el-menu-item-group title="分组2">
@@ -234,5 +237,22 @@ h1 {
 }
 .el-menu-item-group {
   overflow: hidden;
+}
+.right-top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imgWrap{
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 40px;
+  overflow: hidden;
+  margin-right: 8px;
+}
+.imgWrap img{
+  width: 100%;
+  height: 100%;
 }
 </style>

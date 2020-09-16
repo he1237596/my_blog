@@ -125,9 +125,10 @@ export default {
 </script>
 <style scoped="scoped">
 .md {
-  height: 300px;
+  height: 50vh;
 }
 .box-card {
+  height: 100%;
 }
 .formItem {
   margin-bottom: 0;
